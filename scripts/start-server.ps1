@@ -37,14 +37,17 @@ if ($existingListener) {
 
 $nodeExe = Resolve-NodeExe
 
-$process = Start-Process \
-	-FilePath $nodeExe \
-	-ArgumentList @("server.js") \
-	-WorkingDirectory $projectRoot \
-	-WindowStyle Hidden \
-	-RedirectStandardOutput $outLog \
-	-RedirectStandardError $errLog \
-	-PassThru
+$startProcessArgs = @{
+	FilePath = $nodeExe
+	ArgumentList = @("server.js")
+	WorkingDirectory = $projectRoot
+	WindowStyle = "Hidden"
+	RedirectStandardOutput = $outLog
+	RedirectStandardError = $errLog
+	PassThru = $true
+}
+
+$process = Start-Process @startProcessArgs
 
 Write-Host "Server started in background (PID: $($process.Id))."
 Write-Host "Log files:"
