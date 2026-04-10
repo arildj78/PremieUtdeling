@@ -64,6 +64,10 @@ Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/<bruker>/<
 powershell -ExecutionPolicy Bypass -File ".\install-from-github.ps1" -RepoUrl "https://github.com/<bruker>/<repo>.git" -Branch "main" -InstallDir "$env:USERPROFILE\Premieutdeling" -OpenFirewall
 ```
 
+Hvis dere bruker `install.bat` i prosjektroten, vil installasjonen i tillegg:
+- Starte serveren automatisk etter fullfort installasjon
+- Opprette autostart-task i Windows (ONSTART, med fallback til ONLOGON)
+
 Alternativt kan dere klone manuelt og sa kjore scriptet direkte fra repo:
 
 ```powershell
@@ -87,6 +91,12 @@ powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Premieutdeling\script
 ### 4) Oppdatere fra GitHub senere
 
 Kjor samme script igjen med samme parametre. Dersom mappen finnes fra for, gjor scriptet `git pull` + `npm ci`.
+
+For enklere event-day oppdatering finnes ogsa `update.bat` i prosjektroten:
+
+```powershell
+update.bat https://github.com/<bruker>/<repo>.git main "$env:USERPROFILE\Premieutdeling"
+```
 
 ## Data du redigerer
 

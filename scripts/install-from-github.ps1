@@ -6,7 +6,9 @@ param(
 
   [string]$InstallDir = "$env:USERPROFILE\\Premieutdeling",
 
-  [switch]$OpenFirewall
+  [switch]$OpenFirewall,
+
+  [switch]$SetupAutostart
 )
 
 $ErrorActionPreference = "Stop"
@@ -62,6 +64,33 @@ if ($OpenFirewall) {
     New-NetFirewallRule -DisplayName $ruleName -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 | Out-Null
   } else {
     Write-Host "Firewall rule already exists: $ruleName" -ForegroundColor DarkGray
+  }
+}
+
+if ($SetupAutostart) {
+  $taskName = "Premieutdeling-Autostart"
+  $taskScript = Join-Path $InstallDir "scripts\\start-server.ps1"
+
+  if (-not (Test-Path $taskScript)) {
+    throw "Cannot configure autostart: missing script $taskScript"
+  }
+
+  $taskAction = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$taskScript`""
+
+  # Prefer ONSTART (boot), fallback to ONLOGON if admin rights are not available.
+  $onStartResult = cmd /c "schtasks /Create /TN \"$taskName\" /SC ONSTART /RU SYSTEM /RL HIGHEST /TR \"$taskAction\" /F" 2>&1
+  if ($LASTEXITCODE -eq 0) {
+    Write-Host "Configured autostart task (ONSTART): $taskName" -ForegroundColor Green
+  } else {
+    Write-Host "ONSTART task creation failed, trying ONLOGON for current user..." -ForegroundColor Yellow
+    $onLogonResult = cmd /c "schtasks /Create /TN \"$taskName\" /SC ONLOGON /RL LIMITED /TR \"$taskAction\" /F" 2>&1
+    if ($LASTEXITCODE -eq 0) {
+      Write-Host "Configured autostart task (ONLOGON): $taskName" -ForegroundColor Green
+    } else {
+      Write-Host $onStartResult -ForegroundColor DarkGray
+      Write-Host $onLogonResult -ForegroundColor DarkGray
+      throw "Could not configure autostart scheduled task."
+    }
   }
 }
 
