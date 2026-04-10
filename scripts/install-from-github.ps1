@@ -111,15 +111,23 @@ if ((Test-Path $exampleData) -and (-not (Test-Path $realData))) {
 
 Pop-Location
 
-if ($OpenFirewall) {
-  $ruleName = "Premieutdeling-3000"
-  $existingRule = Get-NetFirewallRule -DisplayName $ruleName -ErrorAction SilentlyContinue
+$postInstallWarnings = @()
 
-  if (-not $existingRule) {
-    Write-Host "Opening Windows Firewall for TCP/3000..." -ForegroundColor Cyan
-    New-NetFirewallRule -DisplayName $ruleName -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 | Out-Null
-  } else {
-    Write-Host "Firewall rule already exists: $ruleName" -ForegroundColor DarkGray
+if ($OpenFirewall) {
+  try {
+    $ruleName = "Premieutdeling-3000"
+    $existingRule = Get-NetFirewallRule -DisplayName $ruleName -ErrorAction SilentlyContinue
+
+    if (-not $existingRule) {
+      Write-Host "Opening Windows Firewall for TCP/3000..." -ForegroundColor Cyan
+      New-NetFirewallRule -DisplayName $ruleName -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3000 | Out-Null
+    } else {
+      Write-Host "Firewall rule already exists: $ruleName" -ForegroundColor DarkGray
+    }
+  } catch {
+    $postInstallWarnings += "Could not open firewall port 3000 automatically (requires admin)."
+    Write-Host "Warning: Could not configure Windows Firewall automatically." -ForegroundColor Yellow
+    Write-Host "Advice: Run install.bat as Administrator, or open TCP/3000 manually." -ForegroundColor Yellow
   }
 }
 
@@ -145,7 +153,9 @@ if ($SetupAutostart) {
     } else {
       Write-Host $onStartResult -ForegroundColor DarkGray
       Write-Host $onLogonResult -ForegroundColor DarkGray
-      throw "Could not configure autostart scheduled task."
+      $postInstallWarnings += "Could not configure autostart task automatically."
+      Write-Host "Warning: Could not configure autostart scheduled task." -ForegroundColor Yellow
+      Write-Host "Advice: Run install.bat as Administrator and rerun, or create the task manually." -ForegroundColor Yellow
     }
   }
 }
@@ -170,4 +180,12 @@ Write-Host "  http://localhost:3000/control"
 if ($ipv4) {
   Write-Host "Display page from another PC:" -ForegroundColor Green
   Write-Host "  http://$ipv4:3000/display"
+}
+
+if ($postInstallWarnings.Count -gt 0) {
+  Write-Host "" 
+  Write-Host "Completed with warnings:" -ForegroundColor Yellow
+  foreach ($warning in $postInstallWarnings) {
+    Write-Host "  - $warning" -ForegroundColor Yellow
+  }
 }
