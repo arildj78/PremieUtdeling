@@ -91,6 +91,7 @@ powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Premieutdeling\script
 For drift finnes ogsa disse hjelpefilene i prosjektroten:
 
 ```powershell
+start-server.bat
 status-server.bat
 stop-server.bat
 ```
