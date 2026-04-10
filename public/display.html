@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premieutdeling Display</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="display-page">
+    <div class="display-bg"></div>
+    <main class="display-layout">
+
+      <header class="display-header">
+        <img id="eventLogo" class="event-logo"
+          src="/logos/event/arrangement.png" alt="Arrangement"
+          onerror="this.style.display='none';" />
+        <div class="header-text">
+          <h1 id="displayTitle">Premieutdeling</h1>
+          <p id="displaySubtitle">Zeekit L&Aring;M&Oslash; Nord 2026</p>
+        </div>
+      </header>
+
+      <div class="podium-wrap">
+        <section class="half-stage single-stage">
+          <div class="podium-grid">
+            <article class="podium-card silver-card">
+              <div class="medal silver"></div>
+              <p id="silverName"  class="winner-name">-</p>
+              <img id="silverLogo" class="club-logo" alt="" />
+              <p id="silverClub"  class="club-name"></p>
+            </article>
+            <article class="podium-card gold-card">
+              <div class="medal gold"></div>
+              <p id="goldName"  class="winner-name">-</p>
+              <img id="goldLogo" class="club-logo" alt="" />
+              <p id="goldClub"  class="club-name"></p>
+            </article>
+            <article class="podium-card bronze-card">
+              <div class="medal bronze"></div>
+              <p id="bronzeName"  class="winner-name">-</p>
+              <img id="bronzeLogo" class="club-logo" alt="" />
+              <p id="bronzeClub"  class="club-name"></p>
+            </article>
+          </div>
+        </section>
+
+      </div><!-- /podium-wrap -->
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/display.js"></script>
+  </body>
+</html>

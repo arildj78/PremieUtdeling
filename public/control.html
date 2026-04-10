@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premieutdeling Kontroll</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="control-page">
+    <div class="bg-layer"></div>
+    <main class="control-layout">
+
+      <!-- ── Left: ceremony list ── -->
+      <section class="panel panel-list">
+        <div class="panel-head">
+          <h1>Premieutdeling</h1>
+        </div>
+
+        <div class="list-toolbar">
+          <label>Session
+            <select id="sesFilter"><option value="all">Alle</option></select>
+          </label>
+          <label>Stilart
+            <select id="strokeFilter"><option value="all">Alle</option></select>
+          </label>
+          <label>Vis
+            <select id="doneFilter">
+              <option value="all">Alle</option>
+              <option value="active">Aktive</option>
+              <option value="done">Ferdige</option>
+            </select>
+          </label>
+        </div>
+
+        <ul id="ceremonyList" class="ceremony-list"></ul>
+      </section>
+
+      <!-- ── Right: editor ── -->
+      <section class="panel panel-editor">
+        <div class="panel-head">
+          <h2 id="selectedTitle">Ingen seremoni valgt</h2>
+          <p id="selectedMeta"></p>
+        </div>
+
+        <div class="dual-form">
+
+          <div class="sex-col" id="jenCol">
+            <h3 class="sex-heading">Jenter</h3>
+
+            <div class="medal-row gold">
+              <span class="medal-dot gold-dot"></span>
+              <div class="medal-fields">
+                <label>Gull<select id="jGoldSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="jGoldOverride" placeholder="Skriv navn" />
+                  <select id="jGoldClubSelect"></select>
+                </div>
+                <p class="logo-name" id="jGoldLogoName">Logo: -</p>
+              </div>
+            </div>
+            <div class="medal-row silver">
+              <span class="medal-dot silver-dot"></span>
+              <div class="medal-fields">
+                <label>Solv<select id="jSilverSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="jSilverOverride" placeholder="Skriv navn" />
+                  <select id="jSilverClubSelect"></select>
+                </div>
+                <p class="logo-name" id="jSilverLogoName">Logo: -</p>
+              </div>
+            </div>
+            <div class="medal-row bronze">
+              <span class="medal-dot bronze-dot"></span>
+              <div class="medal-fields">
+                <label>Bronse<select id="jBronzeSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="jBronzeOverride" placeholder="Skriv navn" />
+                  <select id="jBronzeClubSelect"></select>
+                </div>
+                <p class="logo-name" id="jBronzeLogoName">Logo: -</p>
+              </div>
+            </div>
+            <button id="pushGirlsBtn" class="btn primary full-width">Vis jenter pa storskjerm</button>
+            <div class="button-preview">
+              <div class="button-preview-label">Forhåndsvisning jenter</div>
+              <div class="preview-wrapper">
+                <iframe
+                  id="previewGirlsFrame"
+                  class="preview-frame"
+                  src="/display?preview=1"
+                  title="Preview jenter"
+                  loading="lazy">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="sex-col" id="gutCol">
+            <h3 class="sex-heading">Gutter</h3>
+
+            <div class="medal-row gold">
+              <span class="medal-dot gold-dot"></span>
+              <div class="medal-fields">
+                <label>Gull<select id="gGoldSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="gGoldOverride" placeholder="Skriv navn" />
+                  <select id="gGoldClubSelect"></select>
+                </div>
+                <p class="logo-name" id="gGoldLogoName">Logo: -</p>
+              </div>
+            </div>
+            <div class="medal-row silver">
+              <span class="medal-dot silver-dot"></span>
+              <div class="medal-fields">
+                <label>Solv<select id="gSilverSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="gSilverOverride" placeholder="Skriv navn" />
+                  <select id="gSilverClubSelect"></select>
+                </div>
+                <p class="logo-name" id="gSilverLogoName">Logo: -</p>
+              </div>
+            </div>
+            <div class="medal-row bronze">
+              <span class="medal-dot bronze-dot"></span>
+              <div class="medal-fields">
+                <label>Bronse<select id="gBronzeSelect"></select></label>
+                <label>Manuelt</label>
+                <div class="manual-row">
+                  <input id="gBronzeOverride" placeholder="Skriv navn" />
+                  <select id="gBronzeClubSelect"></select>
+                </div>
+                <p class="logo-name" id="gBronzeLogoName">Logo: -</p>
+              </div>
+            </div>
+            <button id="pushBoysBtn" class="btn primary full-width">Vis gutter pa storskjerm</button>
+            <div class="button-preview">
+              <div class="button-preview-label">Forhåndsvisning gutter</div>
+              <div class="preview-wrapper">
+                <iframe
+                  id="previewBoysFrame"
+                  class="preview-frame"
+                  src="/display?preview=1"
+                  title="Preview gutter"
+                  loading="lazy">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="action-mode-row">
+          <label class="display-mode-control">Visningsmodus
+            <select id="revealModeSelect">
+              <option value="all">Vis alle</option>
+              <option value="step">Start tomt, avslør en og en</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="action-row action-row-reveal">
+          <button id="revealBackBtn"  class="btn secondary">Gå tilbake</button>
+          <button id="revealNextBtn"  class="btn secondary">Avslør neste</button>
+          <p id="screenHeaderHint" class="screen-header-hint">På skjerm nå: Tom skjerm</p>
+        </div>
+
+        <div class="action-row action-row-main">
+          <label class="checkbox-row">
+            <input type="checkbox" id="completedCheckbox" />
+            Marker som ferdig (dimmes i listen)
+          </label>
+          <button id="saveBtn"         class="btn secondary">Lagre</button>
+          <button id="clearDisplayBtn" class="btn ghost">Tom skjerm</button>
+          <button id="resetDataBtn"    class="btn ghost">Tilbakestill data</button>
+        </div>
+
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/control.js"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "clubs": [
+    {
+      "id": "club-eksempel-sk",
+      "name": "Eksempel SK",
+      "logoPath": "/logos/clubs/Eksempel%20SK.png"
+    },
+    {
+      "id": "club-demo-il",
+      "name": "Demo IL",
+      "logoPath": "/logos/clubs/Demo%20IL.png"
+    }
+  ],
+  "swimmers": [
+    {
+      "id": "sw-0001",
+      "name": "Ola Nordmann",
+      "birthYear": 2012,
+      "sex": "gutter",
+      "clubId": "club-eksempel-sk",
+      "para": false,
+      "events": ["Fri", "Bryst"]
+    },
+    {
+      "id": "sw-0002",
+      "name": "Per Hansen",
+      "birthYear": 2012,
+      "sex": "gutter",
+      "clubId": "club-demo-il",
+      "para": false,
+      "events": ["Fri", "Bryst"]
+    },
+    {
+      "id": "sw-0003",
+      "name": "Kari Nordmann",
+      "birthYear": 2012,
+      "sex": "jenter",
+      "clubId": "club-eksempel-sk",
+      "para": false,
+      "events": ["Fri", "Bryst"]
+    },
+    {
+      "id": "sw-0004",
+      "name": "Anne Olsen",
+      "birthYear": 2012,
+      "sex": "jenter",
+      "clubId": "club-demo-il",
+      "para": false,
+      "events": ["Fri", "Bryst"]
+    }
+  ],
+  "ceremonies": [
+    {
+      "id": "cer-001",
+      "eventNumbers": [1, 2],
+      "year": 2012,
+      "para": false,
+      "stroke": "Fri",
+      "distance": 100,
+      "title": "2012 - 100m Fri",
+      "ceremonyText": "Eksempelseremoni",
+      "sesId": 1,
+      "completed": false,
+      "medalists": {
+        "jenter": {
+          "goldSwimmerId": "sw-0003",
+          "goldNameOverride": "",
+          "goldClubId": "",
+          "silverSwimmerId": "sw-0004",
+          "silverNameOverride": "",
+          "silverClubId": "",
+          "bronzeSwimmerId": null,
+          "bronzeNameOverride": "",
+          "bronzeClubId": ""
+        },
+        "gutter": {
+          "goldSwimmerId": "sw-0001",
+          "goldNameOverride": "",
+          "goldClubId": "",
+          "silverSwimmerId": "sw-0002",
+          "silverNameOverride": "",
+          "silverClubId": "",
+          "bronzeSwimmerId": null,
+          "bronzeNameOverride": "",
+          "bronzeClubId": ""
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.vscode/settings.json
+.vscode/*.code-snippets
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.swp
+
+# Real meet data (do not commit)
+public/data/ceremonies.json
+swimmers/
+swim meet setup/
