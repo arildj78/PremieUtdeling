@@ -142,17 +142,23 @@ if ($SetupAutostart) {
   $taskAction = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$taskScript`""
 
   # Prefer ONSTART (boot), fallback to ONLOGON if admin rights are not available.
-  $onStartResult = cmd /c "schtasks /Create /TN \"$taskName\" /SC ONSTART /RU SYSTEM /RL HIGHEST /TR \"$taskAction\" /F" 2>&1
-  if ($LASTEXITCODE -eq 0) {
+  $onStartArgs = @(
+    "/Create", "/TN", $taskName, "/SC", "ONSTART", "/RU", "SYSTEM", "/RL", "HIGHEST", "/TR", $taskAction, "/F"
+  )
+  $onStartProcess = Start-Process -FilePath "schtasks.exe" -ArgumentList $onStartArgs -NoNewWindow -Wait -PassThru
+  if ($onStartProcess.ExitCode -eq 0) {
     Write-Host "Configured autostart task (ONSTART): $taskName" -ForegroundColor Green
   } else {
     Write-Host "ONSTART task creation failed, trying ONLOGON for current user..." -ForegroundColor Yellow
-    $onLogonResult = cmd /c "schtasks /Create /TN \"$taskName\" /SC ONLOGON /RL LIMITED /TR \"$taskAction\" /F" 2>&1
-    if ($LASTEXITCODE -eq 0) {
+    $onLogonArgs = @(
+      "/Create", "/TN", $taskName, "/SC", "ONLOGON", "/RL", "LIMITED", "/TR", $taskAction, "/F"
+    )
+    $onLogonProcess = Start-Process -FilePath "schtasks.exe" -ArgumentList $onLogonArgs -NoNewWindow -Wait -PassThru
+    if ($onLogonProcess.ExitCode -eq 0) {
       Write-Host "Configured autostart task (ONLOGON): $taskName" -ForegroundColor Green
     } else {
-      Write-Host $onStartResult -ForegroundColor DarkGray
-      Write-Host $onLogonResult -ForegroundColor DarkGray
+      Write-Host "schtasks exit code (ONSTART): $($onStartProcess.ExitCode)" -ForegroundColor DarkGray
+      Write-Host "schtasks exit code (ONLOGON): $($onLogonProcess.ExitCode)" -ForegroundColor DarkGray
       $postInstallWarnings += "Could not configure autostart task automatically."
       Write-Host "Warning: Could not configure autostart scheduled task." -ForegroundColor Yellow
       Write-Host "Advice: Run install.bat as Administrator and rerun, or create the task manually." -ForegroundColor Yellow
