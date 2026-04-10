@@ -269,10 +269,6 @@ select:focus, input:focus { outline: none; border-color: var(--accent); }
 .btn.ghost     { background: transparent; border-color: rgba(255,107,107,0.4); color: var(--danger); }
 
 /* ── Display page ─────────────────────────────────────────────────────────── */
-body.display-page.display-blank {
-  background: #000 !important;
-}
-
 body.display-page.display-blank .display-layout {
   visibility: hidden;
 }
