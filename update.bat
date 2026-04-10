@@ -11,7 +11,7 @@ set "BRANCH=%~2"
 set "INSTALL_DIR=%~3"
 
 if "%REPO_URL%"=="" (
-  set /p REPO_URL=GitHub repo URL (for example https://github.com/user/repo.git): 
+  set /p REPO_URL=GitHub repo URL ^(for example https://github.com/user/repo.git^): 
 )
 
 if "%BRANCH%"=="" set "BRANCH=main"
