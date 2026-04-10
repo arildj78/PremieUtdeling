@@ -88,6 +88,13 @@ Eller:
 powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Premieutdeling\scripts\start-server.ps1"
 ```
 
+For drift finnes ogsa disse hjelpefilene i prosjektroten:
+
+```powershell
+status-server.bat
+stop-server.bat
+```
+
 ### 4) Oppdatere fra GitHub senere
 
 Kjor samme script igjen med samme parametre. Dersom mappen finnes fra for, gjor scriptet `git pull` + `npm ci`.
