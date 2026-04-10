@@ -16,11 +16,67 @@ function Require-Command {
   param([string]$CommandName)
 
   if (-not (Get-Command $CommandName -ErrorAction SilentlyContinue)) {
-    throw "Missing required command: $CommandName. Install it and run this script again."
+    throw "Missing required command: $CommandName. Install Node.js LTS from https://nodejs.org/ and rerun the script in a new terminal window."
   }
 }
 
+function Test-Command {
+  param([string]$CommandName)
+  return [bool](Get-Command $CommandName -ErrorAction SilentlyContinue)
+}
+
+function Add-NodeToPathIfInstalled {
+  $candidateDirs = @(
+    (Join-Path $env:ProgramFiles "nodejs"),
+    (Join-Path ${env:ProgramFiles(x86)} "nodejs")
+  ) | Where-Object { $_ -and (Test-Path $_) }
+
+  foreach ($dir in $candidateDirs) {
+    $nodeExe = Join-Path $dir "node.exe"
+    $npmCmd = Join-Path $dir "npm.cmd"
+    if ((Test-Path $nodeExe) -and (Test-Path $npmCmd)) {
+      if (-not ($env:Path -split ';' | Where-Object { $_ -eq $dir })) {
+        $env:Path = "$dir;$env:Path"
+      }
+      return
+    }
+  }
+}
+
+function Install-NodeIfMissing {
+  Add-NodeToPathIfInstalled
+  if ((Test-Command "node") -and (Test-Command "npm")) {
+    return
+  }
+
+  Write-Host "Node.js not found. Attempting automatic install of Node.js LTS..." -ForegroundColor Yellow
+
+  if (Test-Command "winget") {
+    Write-Host "Installing Node.js LTS via winget..." -ForegroundColor Cyan
+    winget install --id OpenJS.NodeJS.LTS --exact --accept-source-agreements --accept-package-agreements --silent
+    Add-NodeToPathIfInstalled
+    if ((Test-Command "node") -and (Test-Command "npm")) {
+      Write-Host "Node.js installed via winget." -ForegroundColor Green
+      return
+    }
+  }
+
+  if (Test-Command "choco") {
+    Write-Host "Installing Node.js LTS via Chocolatey..." -ForegroundColor Cyan
+    choco install nodejs-lts -y --no-progress
+    Add-NodeToPathIfInstalled
+    if ((Test-Command "node") -and (Test-Command "npm")) {
+      Write-Host "Node.js installed via Chocolatey." -ForegroundColor Green
+      return
+    }
+  }
+
+  throw "Could not auto-install Node.js. Ensure winget or choco is available, or install Node.js LTS manually."
+}
+
 Write-Host "Checking prerequisites..." -ForegroundColor Cyan
+Add-NodeToPathIfInstalled
+Install-NodeIfMissing
 Require-Command git
 Require-Command node
 Require-Command npm
