@@ -50,8 +50,26 @@ set "EXIT_CODE=%ERRORLEVEL%"
 
 if not "%EXIT_CODE%"=="0" (
   echo.
-  echo Install failed with exit code %EXIT_CODE%.
-  exit /b %EXIT_CODE%
+  echo Install with autostart failed ^(exit code %EXIT_CODE%^).
+  echo Retrying without autostart setup...
+
+  if "%REPO_URL%"=="" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%" -Branch "%BRANCH%" -InstallDir "%INSTALL_DIR%" -OpenFirewall
+  ) else (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%" -RepoUrl "%REPO_URL%" -Branch "%BRANCH%" -InstallDir "%INSTALL_DIR%" -OpenFirewall
+  )
+  set "EXIT_CODE=%ERRORLEVEL%"
+
+  if not "%EXIT_CODE%"=="0" (
+    echo.
+    echo Install failed with exit code %EXIT_CODE%.
+    echo Advice: Try running install.bat as Administrator, or rerun and share the full error output.
+    exit /b %EXIT_CODE%
+  )
+
+  echo.
+  echo Install completed, but autostart was not configured automatically.
+  echo Advice: Run install.bat as Administrator to enable autostart setup.
 )
 
 echo.
