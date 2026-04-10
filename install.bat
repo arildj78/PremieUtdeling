@@ -77,7 +77,7 @@ echo Install completed successfully.
 
 set "START_SCRIPT=%INSTALL_DIR%\scripts\start-server.ps1"
 if exist "%START_SCRIPT%" (
-  echo Starting server in a new window...
+  echo Starting server in background...
   start "Premieutdeling Server" powershell -NoProfile -ExecutionPolicy Bypass -File "%START_SCRIPT%"
 ) else (
   echo WARNING: Could not find start script at "%START_SCRIPT%"
