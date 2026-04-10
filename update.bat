@@ -10,12 +10,12 @@ set "REPO_URL=%~1"
 set "BRANCH=%~2"
 set "INSTALL_DIR=%~3"
 
-if "%REPO_URL%"=="" (
-  set /p REPO_URL=GitHub repo URL ^(for example https://github.com/user/repo.git^): 
-)
+set "SCRIPT_DIR=%~dp0"
+if "%SCRIPT_DIR:~-1%"=="\" set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
+
+if "%INSTALL_DIR%"=="" set "INSTALL_DIR=%SCRIPT_DIR%"
 
 if "%BRANCH%"=="" set "BRANCH=main"
-if "%INSTALL_DIR%"=="" set "INSTALL_DIR=%USERPROFILE%\Premieutdeling"
 
 set "SCRIPT_PATH=%~dp0scripts\install-from-github.ps1"
 
@@ -35,12 +35,20 @@ if not exist "%INSTALL_DIR%\.git" (
 
 echo.
 echo Updating deployment...
-echo Repo: %REPO_URL%
+if "%REPO_URL%"=="" (
+  echo Repo: ^<existing clone^>
+) else (
+  echo Repo: %REPO_URL%
+)
 echo Branch: %BRANCH%
 echo InstallDir: %INSTALL_DIR%
 echo.
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%" -RepoUrl "%REPO_URL%" -Branch "%BRANCH%" -InstallDir "%INSTALL_DIR%" -OpenFirewall
+if "%REPO_URL%"=="" (
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%" -Branch "%BRANCH%" -InstallDir "%INSTALL_DIR%" -OpenFirewall
+) else (
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_PATH%" -RepoUrl "%REPO_URL%" -Branch "%BRANCH%" -InstallDir "%INSTALL_DIR%" -OpenFirewall
+)
 set "EXIT_CODE=%ERRORLEVEL%"
 
 if not "%EXIT_CODE%"=="0" (

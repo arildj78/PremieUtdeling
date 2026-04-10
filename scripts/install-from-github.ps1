@@ -1,6 +1,5 @@
 param(
-  [Parameter(Mandatory = $true)]
-  [string]$RepoUrl,
+  [string]$RepoUrl = "",
 
   [string]$Branch = "main",
 
@@ -26,10 +25,7 @@ Require-Command git
 Require-Command node
 Require-Command npm
 
-if (Test-Path $InstallDir) {
-  if (-not (Test-Path (Join-Path $InstallDir ".git"))) {
-    throw "InstallDir exists but is not a git repository: $InstallDir"
-  }
+if (Test-Path (Join-Path $InstallDir ".git")) {
 
   Write-Host "Repository already exists. Updating..." -ForegroundColor Cyan
   Push-Location $InstallDir
@@ -38,6 +34,10 @@ if (Test-Path $InstallDir) {
   git pull --ff-only origin $Branch
   Pop-Location
 } else {
+  if ([string]::IsNullOrWhiteSpace($RepoUrl)) {
+    throw "RepoUrl is required when InstallDir is not already a git repository: $InstallDir"
+  }
+
   Write-Host "Cloning repository..." -ForegroundColor Cyan
   git clone --branch $Branch $RepoUrl $InstallDir
 }
