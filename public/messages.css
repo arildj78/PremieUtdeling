@@ -70,6 +70,16 @@ select {
   font: inherit;
 }
 
+select {
+  background: #0d2436;
+  color: var(--ink);
+}
+
+select option {
+  background: #0d2436;
+  color: var(--ink);
+}
+
 textarea {
   resize: vertical;
 }
