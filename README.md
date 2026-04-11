@@ -4,14 +4,20 @@ Dette prosjektet lar en kontroll-PC styre en live premieutdeling-visning som kan
 
 ## Funksjoner
 
-- Egen kontrollside: `/control`
-- Egen storskjerm-side: `/display`
+- Fanebasert kontrollsenter: `/control`
+- Egen kontrollfane for premieutdeling: `/control/awards`
+- Egen kontrollfane for klubbvisning: `/control/clubs`
+- Egen kontrollfane for meldinger: `/control/messages`
+- Egen storskjerm-side premieutdeling: `/display`
+- Egen storskjerm-side klubbvisning: `/display/clubs`
+- Egen storskjerm-side meldinger: `/display/messages`
 - Live oppdatering med Socket.IO
 - Medaljeoppsett for gull, solv og bronse
 - Markering av fullfort seremoni (dimmes i liste)
 - Ca. 25 ferdiglagde seremonier (2015-2010)
 - Para seremonier lagt forst for 2015
 - Plass for arrangement-logo og klubb-logo
+- Integrert klubbvisning fra nabo-prosjektet `../StevneGrafikk`
 
 ## Kom i gang
 
@@ -25,12 +31,23 @@ npm start
 
 3. Apne pa kontroll-PC:
 
-- Kontroll: `http://localhost:3000/control`
-- Display lokalt: `http://localhost:3000/display`
+- Kontrollsenter (faner): `http://localhost:3000/control`
+- Premie-display: `http://localhost:3000/display`
+- Klubb-display: `http://localhost:3000/display/clubs`
+- Meldings-display: `http://localhost:3000/display/messages`
 
 4. Pa LED-skjermmaskinen (samme nettverk), bruk kontroll-PC sin IP-adresse:
 
-- `http://<KONTROLL-PC-IP>:3000/display`
+- Premieutdeling: `http://<KONTROLL-PC-IP>:3000/display`
+- Klubbvisning: `http://<KONTROLL-PC-IP>:3000/display/clubs`
+- Meldinger: `http://<KONTROLL-PC-IP>:3000/display/messages`
+
+Hvis StevneGrafikk ligger et annet sted enn `../StevneGrafikk`, sett miljo-variabel før oppstart:
+
+```powershell
+$env:CLUBS_PROJECT_PATH = "C:\path\til\StevneGrafikk"
+npm start
+```
 
 Tips: Finn IP i PowerShell med `ipconfig`.
 

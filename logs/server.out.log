@@ -1,0 +1,10 @@
+Premieutdeling server running on http://localhost:3000
+Control views:
+  /control (tabbed hub)
+  /control/awards
+  /control/clubs
+  /control/messages
+Display views:
+  /display
+  /display/clubs
+  /display/messages

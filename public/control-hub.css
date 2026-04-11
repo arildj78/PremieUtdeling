@@ -1,0 +1,130 @@
+:root {
+  --ink: #dff6ff;
+  --muted: #8eb5c8;
+  --line: rgba(150, 210, 240, 0.22);
+  --panel: rgba(5, 22, 37, 0.8);
+  --active: #2ebecf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(21, 79, 114, 0.8), transparent 42%),
+    radial-gradient(circle at 90% 100%, rgba(12, 47, 74, 0.9), transparent 36%),
+    linear-gradient(145deg, #03111f 0%, #0a2238 65%, #0d2f47 100%);
+}
+
+.hub-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.8rem;
+  padding: 0.8rem;
+}
+
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+.hub-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.hub-header p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+}
+
+.display-links {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  text-decoration: none;
+  color: #062533;
+  background: linear-gradient(120deg, #67ffd5, #4eb5ff);
+  font-weight: 700;
+}
+
+.path-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.tab-row {
+  display: flex;
+  gap: 0.55rem;
+  padding: 0.3rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.tab {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  padding: 0.6rem 0.85rem;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.tab.active {
+  background: linear-gradient(120deg, #12789d, #2ebecf);
+  border-color: transparent;
+  color: #e9fdff;
+}
+
+.frame-wrap {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(2, 11, 20, 0.6);
+  overflow: hidden;
+}
+
+.tab-frame {
+  width: 100%;
+  height: calc(100vh - 220px);
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .hub-header {
+    flex-direction: column;
+  }
+
+  .display-links {
+    justify-items: start;
+  }
+
+  .tab-row {
+    flex-wrap: wrap;
+  }
+
+  .tab-frame {
+    height: calc(100vh - 280px);
+  }
+}

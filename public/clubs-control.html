@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klubbvisning Kontroll</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/clubs.css" />
+  </head>
+  <body class="clubs-controller-page">
+    <main class="clubs-controller-panel">
+      <h1>Klubbvisning</h1>
+      <p class="muted">Bruk denne for a styre klubb-intro pa egen storskjerm.</p>
+
+      <div class="counter" id="counter">Slide 1 / 1</div>
+
+      <div class="preview" id="preview">
+        <img id="previewLogo" alt="Klubblogo" />
+        <h2 id="previewName">Laster...</h2>
+      </div>
+
+      <div class="buttons">
+        <button id="prevBtn" class="btn secondary">Forrige</button>
+        <button id="nextBtn" class="btn primary">Neste</button>
+      </div>
+
+      <label for="jumpSelect">Hopp til klubb</label>
+      <select id="jumpSelect"></select>
+
+      <p class="hint">Skjermadresse: /display/clubs</p>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/clubs.js"></script>
+    <script src="/clubs-control.js"></script>
+  </body>
+</html>

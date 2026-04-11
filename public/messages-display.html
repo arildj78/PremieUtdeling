@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meldinger Display</title>
+    <link rel="stylesheet" href="/messages.css" />
+  </head>
+  <body class="msg-display-page msg-blank">
+    <main class="msg-display-layout">
+      <section class="msg-card">
+        <p id="msgTitle" class="msg-title">Beskjeder til svommere</p>
+        <h1 id="msgText" class="msg-text"></h1>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/messages-display.js"></script>
+  </body>
+</html>

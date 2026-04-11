@@ -1,0 +1,222 @@
+:root {
+  --bg-a: #021a2a;
+  --bg-b: #0c2f45;
+  --panel: rgba(6, 24, 37, 0.82);
+  --panel-soft: rgba(255, 255, 255, 0.08);
+  --text: #f1f8ff;
+  --accent: #24c8a5;
+  --accent-2: #4dd8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Barlow', sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 10%, #174661, var(--bg-a) 55%),
+    linear-gradient(120deg, var(--bg-a), var(--bg-b));
+}
+
+.clubs-display-page {
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background-image: url('/background/black_pattern.png');
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.95) brightness(0.45);
+  transform: scale(1.03);
+}
+
+.bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 11, 18, 0.25), rgba(3, 11, 18, 0.78));
+}
+
+.clubs-display-stage {
+  position: relative;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.stage-viewport {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.stage-canvas {
+  width: 1280px;
+  height: 768px;
+  display: grid;
+  place-items: center;
+  transform-origin: center center;
+}
+
+.team-card {
+  position: relative;
+  background: rgba(6, 24, 37, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  backdrop-filter: blur(8px);
+  padding: 48px 72px;
+  text-align: center;
+  width: 1080px;
+  display: grid;
+  justify-items: center;
+}
+
+.team-card.reveal {
+  animation: card-reveal 450ms ease;
+}
+
+.team-logo {
+  max-height: 480px;
+  max-width: 1050px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+  object-position: center center;
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.45));
+}
+
+.team-name {
+  margin: 20px 0 0;
+  font-size: 108px;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  font-family: 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+}
+
+.clubs-controller-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.clubs-controller-panel {
+  width: min(94vw, 760px);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.28);
+}
+
+.clubs-controller-panel h1 {
+  margin: 0 0 0.25rem;
+}
+
+.muted {
+  margin: 0;
+  opacity: 0.84;
+}
+
+.counter {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.preview {
+  margin: 1rem 0;
+  background: var(--panel-soft);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.preview img {
+  max-height: 140px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.preview h2 {
+  margin: 0.8rem 0 0;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #02252d;
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin-top: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+select {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  padding: 0.7rem;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+}
+
+.hint {
+  margin-top: 1rem;
+  opacity: 0.82;
+}
+
+@keyframes card-reveal {
+  from {
+    transform: translateY(18px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .buttons {
+    grid-template-columns: 1fr;
+  }
+}

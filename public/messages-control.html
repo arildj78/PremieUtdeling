@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meldinger Kontroll</title>
+    <link rel="stylesheet" href="/messages.css" />
+  </head>
+  <body class="msg-control-page">
+    <main class="msg-control-layout">
+      <header>
+        <h1>Meldinger til svommere</h1>
+        <p>Legg inn melding per linje, og vis valgt eller tilfeldig melding pa egen skjerm.</p>
+      </header>
+
+      <section class="msg-grid">
+        <label>
+          Overskrift
+          <input id="titleInput" type="text" value="Beskjeder til svommere" />
+        </label>
+
+        <label>
+          Meldingstekst
+          <textarea id="messageInput" rows="5" placeholder="Skriv en melding som kan vises direkte eller lagres som preset"></textarea>
+        </label>
+
+        <div class="row">
+          <button id="showNowBtn" class="btn primary">Vis na (uten a lagre)</button>
+          <button id="savePresetBtn" class="btn secondary">Lagre som preset</button>
+        </div>
+
+        <label>
+          Presets
+          <select id="presetSelect"></select>
+        </label>
+
+        <div class="row">
+          <button id="loadPresetBtn" class="btn secondary">Hent preset til tekstfelt</button>
+          <button id="showPresetBtn" class="btn primary">Vis valgt preset</button>
+          <button id="showRandomBtn" class="btn primary alt">Vis tilfeldig</button>
+          <button id="deletePresetBtn" class="btn ghost">Slett valgt preset</button>
+          <button id="clearBtn" class="btn ghost">Tom skjerm</button>
+        </div>
+      </section>
+
+      <footer class="status">
+        <span id="liveStatus">Ingen aktiv melding</span>
+        <span>Skjermadresse: /display/messages</span>
+      </footer>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/messages-control.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontrollsenter</title>
+    <link rel="stylesheet" href="/control-hub.css" />
+  </head>
+  <body>
+    <main class="hub-layout">
+      <header class="hub-header">
+        <div>
+          <h1>Kontrollsenter</h1>
+          <p>Bytt mellom premiering, klubbvisning og meldinger til svommere.</p>
+        </div>
+        <div class="display-links">
+          <a id="openDisplayLink" class="btn" href="/display" target="_blank" rel="noopener">Aapne aktiv skjerm</a>
+          <span id="displayPath" class="path-label">/display</span>
+        </div>
+      </header>
+
+      <nav class="tab-row" role="tablist" aria-label="Kontrollfaner">
+        <button class="tab active" data-target="/control/awards" data-display="/display" role="tab" aria-selected="true">Premieutdeling</button>
+        <button class="tab" data-target="/control/clubs" data-display="/display/clubs" role="tab" aria-selected="false">Klubber</button>
+        <button class="tab" data-target="/control/messages" data-display="/display/messages" role="tab" aria-selected="false">Meldinger</button>
+      </nav>
+
+      <section class="frame-wrap">
+        <iframe id="tabFrame" class="tab-frame" src="/control/awards" title="Kontrollfane"></iframe>
+      </section>
+    </main>
+
+    <script src="/control-hub.js"></script>
+  </body>
+</html>

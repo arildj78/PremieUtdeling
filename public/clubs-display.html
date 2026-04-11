@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klubbvisning Display</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/clubs.css" />
+  </head>
+  <body class="clubs-display-page">
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <main class="clubs-display-stage">
+      <div class="stage-viewport" id="stageViewport">
+        <div class="stage-canvas" id="stageCanvas">
+          <section class="team-card" id="teamCard">
+            <img id="teamLogo" class="team-logo" alt="Klubblogo" />
+            <h1 id="teamName" class="team-name">Laster...</h1>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/clubs.js"></script>
+    <script src="/clubs-display.js"></script>
+  </body>
+</html>
